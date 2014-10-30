@@ -2,13 +2,18 @@
 from theano import function
 from theano import tensor as T
 
+
 def contains_softmax(f):
     """
     f: a theano function
     Returns True if f contains a T.nnet.Softmax op, False otherwise.
     """
+    apps = f.maker.fgraph.apply_nodes
+    for app in apps:
+        if isinstance(app.op, T.nnet.Softmax):
+            return True
+    return False
 
-    raise NotImplementedError("TODO: implement this function.")
 
 if __name__ == "__main__":
     X = T.matrix()

@@ -9,8 +9,9 @@ from theano.printing import Print
 import theano.tensor as T
 
 X = T.matrix()
+
 p_tilde = T.exp(X)
-p_tilde = Print('p_tilde', attrs=['min', 'max'])(p_tilde)
+p_tilde = Print("p_tilde", attrs=["min", "max"])(p_tilde)
 denom = p_tilde.sum(axis=1, keepdims=True)
 p = p_tilde / denom
 

@@ -38,8 +38,7 @@ def grad_expected_energy(W, V, H):
         dW: a matrix of the derivatives of the expected gradient
             of the energy
     """
-
-    raise NotImplementedError("TODO: implement this function.")
+    return T.grad(energy(W, V, H).mean(), W, consider_constant=[V, H])
 
 
 if __name__ == "__main__":

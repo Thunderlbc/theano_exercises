@@ -2,7 +2,8 @@
 # python 03_tensor.py to see if your solution works!
 import numpy as np
 from theano import function
-raise NotImplementedError("TODO: add any other imports you need")
+from theano import tensor as T
+
 
 def make_tensor(dim):
     """
@@ -10,8 +11,8 @@ def make_tensor(dim):
     dim: the total number of dimensions of the tensor.
     (You can use any dtype you like)
     """
+    return T.TensorType(broadcastable=tuple([False] * dim), dtype='float32')()
 
-    raise NotImplementedError("TODO: implement this function.")
 
 def broadcasted_add(a, b):
     """
@@ -23,8 +24,8 @@ def broadcasted_add(a, b):
 
     for all i, j, k, l
     """
+    return a.dimshuffle(2, 'x', 1, 0) + b
 
-    raise NotImplementedError("TODO: implement this function.")
 
 def partial_max(a):
     """
@@ -36,8 +37,7 @@ def partial_max(a):
 
     for all i, j
     """
-
-    raise NotImplementedError("TODO: implement this function.")
+    return a.max(axis=(1, 2))
 
 if __name__ == "__main__":
     a = make_tensor(3)
@@ -45,12 +45,12 @@ if __name__ == "__main__":
     c = broadcasted_add(a, b)
     d = partial_max(c)
 
-    f = function([a, b,], d)
+    f = function([a, b, ], d)
 
     rng = np.random.RandomState([1, 2, 3])
     a_value = rng.randn(2, 2, 2).astype(a.dtype)
     b_value = rng.rand(2, 2, 2, 2).astype(b.dtype)
-    c_value = np.transpose(a_value, (2, 1, 0))[:, None, :, :] + b_value
+    c_value = np.transpose(a_value, [2, 1, 0])[:, None, :, :] + b_value
     expected = c_value.max(axis=1).max(axis=1)
 
     actual = f(a_value, b_value)

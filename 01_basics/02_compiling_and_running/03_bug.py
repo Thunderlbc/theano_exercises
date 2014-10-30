@@ -9,5 +9,7 @@ x = T.vector()
 y = T.vector()
 z = T.zeros_like(y)
 a = x + z
-f = function([x, y], a)
-output = f(np.zeros((1,), dtype=x.dtype), np.zeros((2,), dtype=y.dtype))
+f = function([x, y], a, 'FAST_RUN')
+output = f(np.zeros((1,), dtype=x.dtype), np.zeros((1,), dtype=y.dtype))
+#The reason is the dimensions of x_input and y_input are not the same.
+#With FAST_COMPILE mode, the problem will be revealed faster than the rest modes.

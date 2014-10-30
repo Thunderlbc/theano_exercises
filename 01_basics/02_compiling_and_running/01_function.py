@@ -2,7 +2,8 @@
 # python 01_function.py to see if your solution works!
 #
 from theano import tensor as T
-raise NotImplementedError("TODO: add any other imports you need")
+from theano import function
+
 
 def evaluate(x, y, expr, x_value, y_value):
     """
@@ -15,8 +16,7 @@ def evaluate(x, y, expr, x_value, y_value):
     Returns the value of expr when x_value is substituted for x
     and y_value is substituted for y
     """
-
-    raise NotImplementedError("TODO: implement this function.")
+    return function([x, y], expr)(x_value, y_value)
 
 
 if __name__ == "__main__":

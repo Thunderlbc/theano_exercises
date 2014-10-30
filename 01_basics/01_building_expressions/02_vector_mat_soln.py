@@ -2,6 +2,7 @@ import numpy as np
 from theano import function
 import theano.tensor as T
 
+
 def make_vector():
     """
     Returns a new Theano vector.
@@ -9,12 +10,14 @@ def make_vector():
 
     return T.vector()
 
+
 def make_matrix():
     """
     Returns a new Theano matrix.
     """
 
     return T.matrix()
+
 
 def elemwise_mul(a, b):
     """
@@ -24,6 +27,7 @@ def elemwise_mul(a, b):
     """
 
     return a * b
+
 
 def matrix_vector_mul(a, b):
     """

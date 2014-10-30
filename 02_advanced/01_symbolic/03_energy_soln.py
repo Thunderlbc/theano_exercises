@@ -5,6 +5,7 @@ from theano import function
 from theano.sandbox.rng_mrg import MRG_RandomStreams
 import theano.tensor as T
 
+
 def energy(W, V, H):
     """
     W : A theano matrix of RBM weights
@@ -21,6 +22,7 @@ def energy(W, V, H):
         (This RBM has no biases, only weights)
     """
     return -(T.dot(V, W) * H).sum(axis=1)
+
 
 def grad_expected_energy(W, V, H):
     """
@@ -56,9 +58,9 @@ if __name__ == "__main__":
 
     class _ElemwiseNoGradient(theano.tensor.Elemwise):
         def grad(self, inputs, output_gradients):
-            raise TypeError("You shouldn't be differentiating through "
-                    "the sampling process.")
-            return [ theano.gradient.DisconnectedType()() ]
+            raise TypeError("You shouldn't be differentiating through ""the sampling process.")
+            return [theano.gradient.DisconnectedType()()]
+
     block_gradient = _ElemwiseNoGradient(theano.scalar.identity)
 
     v = block_gradient(v)
